@@ -1,4 +1,3 @@
-import { clear } from "@testing-library/user-event/dist/clear";
 import "./App.css";
 import { Component } from "react";
 
@@ -65,3 +64,5 @@ class App extends Component {
 }
 
 export default App;
+
+// Aprendizado atraves do diagrama: https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
