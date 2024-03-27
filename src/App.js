@@ -1,73 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
-import { Component } from 'react';
+import "./App.css";
+import { Component } from "react";
 
 class App extends Component {
-
   state = {
-      name: 'Joao Vitor Mira',
-      counter: 0
+    posts: [
+      {
+        id: 1,
+        title: "O titulo 1",
+        body: "O corpo 1",
+      },
+      {
+        id: 2,
+        title: "O titulo 2",
+        body: "O corpo 2",
+      },
+      {
+        id: 3,
+        title: "O titulo 3",
+        body: "O corpo 3",
+      },
+    ],
   };
 
-  handleClickP = () => {
-    this.setState({name: 'Junior'})
-  };
-
-  handleClickLink = (e) => {
-    e.preventDefault();
-    const {counter} = this.state;
-    this.setState({counter: counter + 1});
-  }
-
-  render () {
-
-    const {name,counter} = this.state
+  render() {
+    const { posts } = this.state;
 
     return (
       <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p onClick={this.handleClickP}>
-          {name} {counter}
-        
-        </p>
-        <a
-          onClick={this.handleClickLink}
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          >
-          Este e o Link
-        </a>
-      </header>
-    </div>
-  )
+          {posts.map((posts) => (
+          <div key={posts.id}>
+            <h1 >{posts.title}</h1>
+            <p>{posts.body}</p>
+          </div>
+          ))}
+      </div>
+    );
+  }
 }
-
-}
-
-/*
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-*/
 
 export default App;
