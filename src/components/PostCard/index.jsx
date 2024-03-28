@@ -20,7 +20,7 @@ export default function PostCard ({id,title,body,cover}) {
         <div className="post-card">
             <img src={cover} alt={title}></img>
             <div className="post-content">
-                <h1>{title}</h1>
+                <h2>{title}</h2>
                 <p>{body}</p>
             </div>
         </div>

@@ -1,49 +1,30 @@
-import "./App.css";
 import { Component } from "react";
-import PostCard from "./components/PostCard";
+
+import "./App.css";
+
+import { loadPosts } from "./utilities/load-posts";
+import { Posts } from "./components/Posts";
 
 class App extends Component {
   state = {
     posts: [],
   };
 
-  componentDidMount() {
-    this.loadPosts();
+  async componentDidMount() {
+    await this.loadPosts();
   }
 
   loadPosts = async () => {
-    const postsResponse = fetch("https://jsonplaceholder.typicode.com/posts");
-    const photosResponse = fetch("https://jsonplaceholder.typicode.com/photos");
-
-    const [posts,photos] = await Promise.all([postsResponse,photosResponse]);
-
-    const postsJson = await posts.json();
-    const photosJson = await photos.json();
-
-    const postsAndPhotos = postsJson.map((post,index) => {
-      return { ...post, cover: photosJson[index].url}
-    })
-
-    this.setState({ posts: postsAndPhotos });
-  };
+    const postsAndPhotos = await loadPosts
+    this.setState({posts: postsAndPhotos})
+  }
 
   render() {
     const { posts } = this.state;
 
     return (
       <section className="container">
-        <div className="posts">
-          {posts.map((posts) => ( 
-            <PostCard 
-              key={posts.id} // Sempre que tiver a funcao map, deve-se existir uma key
-              id = {posts.id}
-              title = {posts.title}
-              body = {posts.body}
-              cover = {posts.cover}
-              // posts = {posts} Ao inves de passar os atributos, pode-se passar um objeto
-            />
-          ))}
-        </div>
+        <Posts posts={posts} />
       </section>
     );
   }
