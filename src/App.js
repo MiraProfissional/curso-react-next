@@ -1,5 +1,6 @@
 import "./App.css";
 import { Component } from "react";
+import PostCard from "./components/PostCard";
 
 class App extends Component {
   state = {
@@ -32,14 +33,15 @@ class App extends Component {
     return (
       <section className="container">
         <div className="posts">
-          {posts.map((posts) => (
-            <div className="post-card">
-              <img src={posts.cover} alt={posts.title}></img>
-              <div key={posts.id} className="post-content">
-                <h1>{posts.title}</h1>
-                <p>{posts.body}</p>
-              </div>
-            </div>
+          {posts.map((posts) => ( 
+            <PostCard 
+              key={posts.id} // Sempre que tiver a funcao map, deve-se existir uma key
+              id = {posts.id}
+              title = {posts.title}
+              body = {posts.body}
+              cover = {posts.cover}
+              // posts = {posts} Ao inves de passar os atributos, pode-se passar um objeto
+            />
           ))}
         </div>
       </section>
