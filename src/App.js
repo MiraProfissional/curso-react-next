@@ -3,66 +3,48 @@ import { Component } from "react";
 
 class App extends Component {
   state = {
-    count: 0,
-    posts: [
-      {
-        id: 1,
-        title: "O titulo 1",
-        body: "O corpo 1",
-      },
-      {
-        id: 2,
-        title: "O titulo 2",
-        body: "O corpo 2",
-      },
-      {
-        id: 3,
-        title: "O titulo 3",
-        body: "O corpo 3",
-      },
-    ],
+    posts: [],
   };
 
-  timeoutUpdate = null;
-  
   componentDidMount() {
-    this.handleTimeout();
+    this.loadPosts();
   }
 
-  componentDidUpdate() {
-    //this.handleTimeout();
-  }
+  loadPosts = async () => {
+    const postsResponse = fetch("https://jsonplaceholder.typicode.com/posts");
+    const photosResponse = fetch("https://jsonplaceholder.typicode.com/photos");
 
-  componentWillUnmount() {
-    clearTimeout(this.timeoutUpdate)
-  }
-  
-  handleTimeout = () => {
-    const { posts, count } = this.state;
-    posts[0].title = 'O titulo mudou';
+    const [posts,photos] = await Promise.all([postsResponse,photosResponse]);
 
-    this.timeoutUpdate = setTimeout(()=>{
-      this.setState({ posts , count: count + 1});
-    },1000)
-  }
+    const postsJson = await posts.json();
+    const photosJson = await photos.json();
+
+    const postsAndPhotos = postsJson.map((post,index) => {
+      return { ...post, cover: photosJson[index].url}
+    })
+
+    this.setState({ posts: postsAndPhotos });
+  };
 
   render() {
-    const { posts, count } = this.state;
+    const { posts } = this.state;
 
     return (
-      <div className="App">
-        <h1>{count}</h1>
+      <section className="container">
+        <div className="posts">
           {posts.map((posts) => (
-          <div key={posts.id}>
-            <h1 >{posts.title}</h1>
-            <p>{posts.body}</p>
-          </div>
+            <div className="post-card">
+              <img src={posts.cover} alt={posts.title}></img>
+              <div key={posts.id} className="post-content">
+                <h1>{posts.title}</h1>
+                <p>{posts.body}</p>
+              </div>
+            </div>
           ))}
-      </div>
+        </div>
+      </section>
     );
   }
 }
 
 export default App;
-
-// Aprendizado atraves do diagrama: https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
