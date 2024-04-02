@@ -12,7 +12,7 @@ export class Home extends Component {
 
   handleClick = () => {
     this.setState(
-      (prevState,prevProps) => {
+      (prevState, prevProps) => {
       return { counter: prevState.counter + 1}
     }, () => {
       console.log(`Atualizou ${this.state.counter}`)
