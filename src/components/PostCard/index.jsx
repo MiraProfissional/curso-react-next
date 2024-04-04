@@ -16,7 +16,7 @@ import './styles.css'
 // }
 
 // Coletando as props atraves do destructuring
-export default function PostCard ({id,title,body,cover}) {
+export const PostCard = ({id,title,body,cover}) => {
 
     return (
         <div className="post-card">
