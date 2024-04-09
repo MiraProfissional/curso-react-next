@@ -2,7 +2,7 @@
 
 // import { http } from 'msw';
 // import { setupServer } from 'msw/node';
-import userEvent from '@testing-library/user-event';
+// import userEvent from '@testing-library/user-event';
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { Home } from '.';
 
@@ -99,5 +99,22 @@ describe('<Home />', () => {
   //   userEvent.type(search, 'Test if search for somethin that does not exists');
 
   //   expect(screen.getByText('Nao existem posts')).toBeInTheDocument();
+  // });
+
+  // it('should load more posts', async () => {
+  //   render(<Home />);
+
+  //   const noMorePosts = screen.getByText('Nao existem posts');
+
+  //   await waitForElementToBeRemoved(noMorePosts);
+
+  //   const button = screen.getByRole('button', { name: /More posts/i });
+  //   expect(button).toBeInTheDocument();
+
+  //   userEvent.click(button);
+
+  //   expect(screen.getByRole('heading', { name: 'title3' })).toBeInTheDocument();
+
+  //   expect(button).toBeDisabled();
   // });
 });
