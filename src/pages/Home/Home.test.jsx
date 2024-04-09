@@ -4,8 +4,22 @@ import { Home } from '.';
 describe('<Home />', () => {
   it('should render search, posts and load more', async () => {
     render(<Home />);
+
     const noMorePosts = screen.getByText('Nao existem posts');
+
     await waitForElementToBeRemoved(noMorePosts);
+
+    const search = screen.getByPlaceholderText(/type your search/i);
+    expect(search).toBeInTheDocument();
+
+    //Teste com os posts estaticamente definidos como 2 na primeira renderizacao do componente. Uma solucao otima para esse problema seria receber por propos a varivel "postsPerPage" da Home.
+    // const images = screen.getAllByRole('img', { name: /title/i });
+    // expect(images).toHaveLength(2);
+
+    const button = screen.getByRole('button', { name: /More posts/i });
+    expect(button).toBeInTheDocument();
+
+    expect.assertions(2);
   });
 });
 
